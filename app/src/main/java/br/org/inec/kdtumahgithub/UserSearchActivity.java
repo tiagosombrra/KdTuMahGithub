@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import br.org.inec.kdtumahgithub.adapter.UserArrayAdapter;
@@ -32,11 +33,13 @@ import java.util.List;
 
 public class UserSearchActivity extends AppCompatActivity {
 
-    private EditText mSearchText;
-    private Button mSearchButton;
+   // private EditText mSearchText;
+   // private Button mSearchButton;
     private ListView mUserList;
     private ProgressBar mProgressBar;
     private TextView mNoResultsText;
+
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +47,40 @@ public class UserSearchActivity extends AppCompatActivity {
         setTitle(R.string.user_search_activity_title);
         setContentView(R.layout.activity_user_search);
 
-        mSearchText = (EditText) findViewById(R.id.user_search_text);
-        mSearchButton = (Button) findViewById(R.id.user_search_search_button);
+        searchView =(SearchView) findViewById(R.id.search_view);
+        searchView.setQueryHint("Digite um usuário");
+        searchView.onActionViewExpanded();
+        searchView.setIconified(false);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                new UserSearchTask().execute(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+        });
+
+      //  mSearchText = (EditText) findViewById(R.id.user_search_text);
+       // mSearchButton = (Button) findViewById(R.id.user_search_search_button);
         mUserList = (ListView) findViewById(R.id.user_list);
         mProgressBar = (ProgressBar) findViewById(R.id.user_search_progressbar);
         mNoResultsText = (TextView) findViewById(R.id.user_search_no_results_text);
 
-        mSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new UserSearchTask().execute(mSearchText.getText().toString());
-            }
-        });
+//        mSearchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new UserSearchTask().execute(mSearchText.getText().toString());
+//            }
+//        });
 
         mUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

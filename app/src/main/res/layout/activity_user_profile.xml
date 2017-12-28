@@ -20,10 +20,13 @@
         android:id="@+id/user_profile_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_alignTop="@+id/user_profile_user_avatar"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignTop="@+id/user_profile_user_avatar"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="@android:string/unknownName" />
 
     <Button
         android:id="@+id/user_profile_open_home_button"
@@ -42,12 +45,16 @@
         android:paddingTop="30dp"
         android:layout_below="@+id/user_profile_user_avatar"
         android:id="@+id/linearLayout">
+
         <TextView
             android:id="@+id/user_profile_user_repositories_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
             android:text="@string/user_profile_user_repositories_label"
-            android:visibility="gone"/>
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
         <TextView
             android:id="@+id/user_profile_no_repositories"
             android:layout_width="wrap_content"

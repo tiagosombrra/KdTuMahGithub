@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubAPI</string>
+    <string name="app_name">Kd tu mah? - Github</string>
 
     <!-- MainActivity -->
     <string name="main_activity_title">Kd tu mah? - Github</string>
@@ -16,7 +16,7 @@
     <string name="repository_search_activity_title">Busca de Repositórios</string>
     <string name="repository_search_text_hint">Digite o nome do repositório</string>
     <string name="repository_search_search_button_text">Pesquisar</string>
-    <string name="repository_search_no_results_message">Não há resultados</string>
+    <string name="repository_search_no_results_message">Usuário não encontrado</string>
     <string name="repository_name_label">Repositório: </string>
     <string name="repository_owner_name_label">Dono: </string>
 
@@ -33,5 +33,7 @@
     <string name="repository_profile_language_label">Linguagem de programação:</string>
     <string name="repository_profile_private_label">Privado:</string>
     <string name="repository_profile_open_home_text">Abrir página do repositório</string>
+    <string name="imageGituhb">image_github</string>
+    <string name="tvAppTheme">Kd Tu Mah? - Github</string>
 
 </resources>
