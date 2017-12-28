@@ -4,65 +4,20 @@ Repositório para criado para desenvolver um aplciativo que consome a API do Git
 
 # Estrutura de Projeto
 
-.
-├── AndroidManifest.xml
-├── java
-│   └── br
-│       └── org
-│           └── inec
-│               └── kdtumahgithub
-│                   ├── activity
-│                   │   ├── MainActivity.java
-│                   │   ├── RepositoryProfileActivity.java
-│                   │   ├── UserProfileActivity.java
-│                   │   └── UserSearchActivity.java
-│                   ├── adapter
-│                   │   ├── RepositoryArrayAdapter.java
-│                   │   ├── UserArrayAdapter.java
-│                   │   └── UserRepositoriesArrayAdapter.java
-│                   ├── apicontrol
-│                   │   └── GithubAPIManager.java
-│                   ├── data
-│                   │   ├── GithubRepository.java
-│                   │   └── GithubUser.java
-│                   └── jsonmanager
-│                       └── JSONManager.java
-└── res
-├── drawable
-│   ├── ic_launcher.png
-│   ├── ic_launcher_background.xml
-│   └── icon_github.png
-├── drawable-v24
-│   └── ic_launcher_foreground.xml
-├── layout
-│   ├── activity_main.xml
-│   ├── activity_repository_profile.xml
-│   ├── activity_user_profile.xml
-│   ├── activity_user_search.xml
-│   ├── repository_list_row.xml
-│   ├── user_list_row.xml
-│   └── user_repositories_list_row.xml
-├── mipmap-anydpi-v26
-│   ├── ic_launcher.xml
-│   └── ic_launcher_round.xml
-├── mipmap-hdpi
-│   └── ic_launcher.png
-├── mipmap-mdpi
-│   └── ic_launcher.png
-├── mipmap-xhdpi
-│   └── ic_launcher.png
-├── mipmap-xxhdpi
-│   └── ic_launcher.png
-├── mipmap-xxxhdpi
-│   └── ic_launcher.png
-├── values
-│   ├── colors.xml
-│   ├── dimens.xml
-│   ├── strings.xml
-│   └── styles.xml
-└── values-w820dp
-└── dimens.xml
+![Alt text](https://github.com/tiagosombrra/KdTuMahGithub/blob/master/images/tree_code.png?raw=true "Tree code")
 
 # Bibliotecas e Framework
 
 * ButterKnife
+
+# Screnshots
+
+![Alt text](https://github.com/tiagosombrra/KdTuMahGithub/blob/master/images/splash.png?raw=true "Splash")
+
+![Alt text](https://github.com/tiagosombrra/KdTuMahGithub/blob/master/images/search.png?raw=true "Search user")
+
+![Alt text](https://github.com/tiagosombrra/KdTuMahGithub/blob/master/images/search_result.png?raw=true "Search result")
+
+![Alt text](https://github.com/tiagosombrra/KdTuMahGithub/blob/master/images/user.png?raw=true "User info")
+
+![Alt text](https://github.com/tiagosombrra/KdTuMahGithub/blob/master/images/repository.png?raw=true "Repository info")
