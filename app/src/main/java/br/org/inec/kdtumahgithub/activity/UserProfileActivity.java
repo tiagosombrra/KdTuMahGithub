@@ -1,4 +1,4 @@
-package br.org.inec.kdtumahgithub;
+package br.org.inec.kdtumahgithub.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,9 +15,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import br.org.inec.kdtumahgithub.R;
 import br.org.inec.kdtumahgithub.adapter.UserRepositoriesArrayAdapter;
 import br.org.inec.kdtumahgithub.apicontrol.GithubAPIManager;
 import br.org.inec.kdtumahgithub.data.GithubRepository;
+import butterknife.BindView;
 
 import java.util.List;
 
@@ -31,6 +34,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView mNoResultsText;
     private Button mOpenHomeButton;
     private String mUserHomeUrl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,7 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Glide.with(this)
                 .load(intent.getStringExtra("user_avatar"))
-                .override(350,350)
+                .override(350, 350)
                 .centerCrop()
                 .into(mUserAvatar);
         mUserLogin.setText(intent.getStringExtra("user_login"));
@@ -110,7 +114,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         protected void onPostExecute(List<GithubRepository> response) {
             mProgressBar.setVisibility(View.GONE);
-            if(response != null) {
+            if (response != null) {
                 Log.i("RESPONSE", response.toString());
                 UserRepositoriesArrayAdapter adapter = new UserRepositoriesArrayAdapter(UserProfileActivity.this,
                         R.layout.user_repositories_list_row, response);

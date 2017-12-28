@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
 import br.org.inec.kdtumahgithub.R;
 import br.org.inec.kdtumahgithub.data.GithubUser;
 
@@ -39,7 +40,7 @@ public class UserArrayAdapter extends ArrayAdapter<GithubUser> {
             userLogin.setText(user.getLogin());
             Glide.with(getContext())
                     .load(user.getAvatarUrl())
-                    .override(200,200)
+                    .override(200, 200)
                     .centerCrop()
                     .into(userAvatar);
         }

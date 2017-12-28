@@ -1,11 +1,10 @@
-package br.org.inec.kdtumahgithub;
+package br.org.inec.kdtumahgithub.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.SearchView;
+
+import br.org.inec.kdtumahgithub.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle(R.string.main_activity_title);
         setContentView(R.layout.activity_main);
 
-        Thread myThread = new Thread(){
+        Thread myThread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), UserSearchActivity.class);
                     startActivity(intent);
                     finish();
-                }catch (InterruptedException e){
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }

@@ -1,4 +1,4 @@
-package br.org.inec.kdtumahgithub;
+package br.org.inec.kdtumahgithub.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,27 +11,35 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import br.org.inec.kdtumahgithub.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RepositoryProfileActivity extends AppCompatActivity {
 
-    private TextView mRepositoryName;
-    private TextView mRepositoryOwnerName;
-    private TextView mRepositoryDescription;
-    private TextView mRepositoryLanguage;
-    private TextView mRepositoryPrivacy;
+    @BindView(R.id.repository_profile_repository_name)
+    TextView mRepositoryName;
+    @BindView(R.id.repository_profile_owner_name_text)
+    TextView mRepositoryOwnerName;
+    @BindView(R.id.repository_profile_description_text)
+    TextView mRepositoryDescription;
+    @BindView(R.id.repository_profile_language_text)
+    TextView mRepositoryLanguage;
+    @BindView(R.id.repository_profile_private_text)
+    TextView mRepositoryPrivacy;
+    @BindView(R.id.repository_profile_open_home_button)
+    Button mOpenHomeButton;
+
     private String mRepositoryHomePage;
-    private Button mOpenHomeButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.repository_profile_activity_title);
         setContentView(R.layout.activity_repository_profile);
-        mRepositoryName = (TextView) findViewById(R.id.repository_profile_repository_name);
-        mRepositoryOwnerName = (TextView) findViewById(R.id.repository_profile_owner_name_text);
-        mRepositoryDescription = (TextView) findViewById(R.id.repository_profile_description_text);
-        mRepositoryLanguage = (TextView) findViewById(R.id.repository_profile_language_text);
-        mRepositoryPrivacy = (TextView) findViewById(R.id.repository_profile_private_text);
-        mOpenHomeButton = (Button) findViewById(R.id.repository_profile_open_home_button);
+
+        ButterKnife.bind(this);
 
         populateFieldsWithIntent();
 

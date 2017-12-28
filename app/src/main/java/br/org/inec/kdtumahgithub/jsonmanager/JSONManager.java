@@ -8,19 +8,19 @@ import br.org.inec.kdtumahgithub.data.GithubUser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JSONManager {
-    public JSONManager() {}
+    public JSONManager() {
+    }
 
     public List<GithubUser> getUsersFromJSON(String jsonContent) {
         ArrayList<GithubUser> foundUsers = new ArrayList<GithubUser>();
         try {
             JSONObject object = new JSONObject(jsonContent);
             JSONArray usersFromSearch = object.getJSONArray("items");
-            for (int i=0; i<usersFromSearch.length(); i++) {
+            for (int i = 0; i < usersFromSearch.length(); i++) {
                 JSONObject userData = usersFromSearch.getJSONObject(i);
                 String userLogin = userData.getString("login");
                 String userAvatarUrl = userData.getString("avatar_url");
@@ -45,7 +45,7 @@ public class JSONManager {
         try {
             JSONObject object = new JSONObject(jsonContent);
             JSONArray repositoriesFromSearch = object.getJSONArray("items");
-            for (int i=0; i<repositoriesFromSearch.length(); i++) {
+            for (int i = 0; i < repositoriesFromSearch.length(); i++) {
                 JSONObject repositoryData = repositoriesFromSearch.getJSONObject(i);
 
                 String name = repositoryData.getString("name");
@@ -56,8 +56,8 @@ public class JSONManager {
                 boolean isPrivate = repositoryData.getBoolean("private");
 
                 GithubRepository githubRepository = new GithubRepository(name, ownerName,
-                                                        homeUrl, description, language,
-                                                        isPrivate);
+                        homeUrl, description, language,
+                        isPrivate);
                 foundRepositories.add(githubRepository);
             }
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class JSONManager {
         ArrayList<GithubRepository> foundRepositories = new ArrayList<GithubRepository>();
         try {
             JSONArray repositoriesFromSearch = new JSONArray(jsonContent);
-            for (int i=0; i<repositoriesFromSearch.length(); i++) {
+            for (int i = 0; i < repositoriesFromSearch.length(); i++) {
                 JSONObject repositoryData = repositoriesFromSearch.getJSONObject(i);
 
                 String name = repositoryData.getString("name");

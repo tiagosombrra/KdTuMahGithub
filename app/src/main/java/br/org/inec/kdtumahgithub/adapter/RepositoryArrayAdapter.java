@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
 import br.org.inec.kdtumahgithub.R;
 import br.org.inec.kdtumahgithub.data.GithubRepository;
 

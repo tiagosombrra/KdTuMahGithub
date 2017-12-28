@@ -7,13 +7,13 @@ public class GithubUser {
     private String mHomeUrl;
     private String mRepositoriesQuery;
 
-    public GithubUser () {
+    public GithubUser() {
         mLogin = "";
         mAvatarUrl = "";
         mHomeUrl = "";
     }
 
-    public GithubUser (String login, String avatarUrl, String homeUrl, String repositoriesQuery) {
+    public GithubUser(String login, String avatarUrl, String homeUrl, String repositoriesQuery) {
         mLogin = login;
         mAvatarUrl = avatarUrl;
         mHomeUrl = homeUrl;

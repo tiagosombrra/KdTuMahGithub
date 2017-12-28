@@ -1,4 +1,4 @@
-package br.org.inec.kdtumahgithub;
+package br.org.inec.kdtumahgithub.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,34 +7,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import br.org.inec.kdtumahgithub.R;
 import br.org.inec.kdtumahgithub.adapter.UserArrayAdapter;
 import br.org.inec.kdtumahgithub.apicontrol.GithubAPIManager;
 import br.org.inec.kdtumahgithub.data.GithubUser;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserSearchActivity extends AppCompatActivity {
 
-   // private EditText mSearchText;
-   // private Button mSearchButton;
     private ListView mUserList;
     private ProgressBar mProgressBar;
     private TextView mNoResultsText;
@@ -47,11 +33,11 @@ public class UserSearchActivity extends AppCompatActivity {
         setTitle(R.string.user_search_activity_title);
         setContentView(R.layout.activity_user_search);
 
-        searchView =(SearchView) findViewById(R.id.search_view);
+        searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setQueryHint("Digite um usuário");
         searchView.onActionViewExpanded();
         searchView.setIconified(false);
-        searchView.clearFocus();
+        //searchView.clearFocus();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -69,18 +55,9 @@ public class UserSearchActivity extends AppCompatActivity {
 
         });
 
-      //  mSearchText = (EditText) findViewById(R.id.user_search_text);
-       // mSearchButton = (Button) findViewById(R.id.user_search_search_button);
         mUserList = (ListView) findViewById(R.id.user_list);
         mProgressBar = (ProgressBar) findViewById(R.id.user_search_progressbar);
         mNoResultsText = (TextView) findViewById(R.id.user_search_no_results_text);
-
-//        mSearchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new UserSearchTask().execute(mSearchText.getText().toString());
-//            }
-//        });
 
         mUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,10 +96,10 @@ public class UserSearchActivity extends AppCompatActivity {
 
         protected void onPostExecute(List<GithubUser> response) {
             mProgressBar.setVisibility(View.GONE);
-            if(response != null) {
+            if (response != null) {
                 Log.i("RESPONSE", response.toString());
                 UserArrayAdapter adapter = new UserArrayAdapter(UserSearchActivity.this,
-                                                            R.layout.user_list_row, response);
+                        R.layout.user_list_row, response);
                 mUserList.setAdapter(adapter);
                 mUserList.setVisibility(View.VISIBLE);
             } else {

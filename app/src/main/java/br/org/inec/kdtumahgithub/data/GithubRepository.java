@@ -8,7 +8,7 @@ public class GithubRepository {
     private String mLanguage;
     private boolean mIsPrivate;
 
-    public GithubRepository () {
+    public GithubRepository() {
         mName = "";
         mOwnerName = "";
         mHomeUrl = "";
@@ -17,8 +17,8 @@ public class GithubRepository {
         mIsPrivate = false;
     }
 
-    public GithubRepository (String name, String ownerName, String homeUrl, String description,
-                             String languange, boolean isPrivate) {
+    public GithubRepository(String name, String ownerName, String homeUrl, String description,
+                            String languange, boolean isPrivate) {
         mName = name;
         mOwnerName = ownerName;
         mHomeUrl = homeUrl;

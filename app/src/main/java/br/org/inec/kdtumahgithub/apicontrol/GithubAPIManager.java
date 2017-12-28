@@ -6,24 +6,21 @@ import br.org.inec.kdtumahgithub.data.GithubRepository;
 import br.org.inec.kdtumahgithub.data.GithubUser;
 import br.org.inec.kdtumahgithub.jsonmanager.JSONManager;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class GithubAPIManager {
     private static final String GITHUB_API_USER_SEARCH_URL =
-                                            "https://api.github.com/search/users?q=";
+            "https://api.github.com/search/users?q=";
     private static final String GITHUB_API_REPOSITORY_SEARCH_URL =
-                                            "https://api.github.com/search/repositories?q=";
+            "https://api.github.com/search/repositories?q=";
 
-    public GithubAPIManager(){}
+    public GithubAPIManager() {
+    }
 
     public List<GithubUser> searchForUsers(String searchText) {
         String responseContent = callUserSearch(searchText);
@@ -59,12 +56,10 @@ public class GithubAPIManager {
                     stringBuilder.append(line);
                 }
                 bufferedReader.close();
-            }
-            finally{
+            } finally {
                 urlConnection.disconnect();
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             Log.e("ERROR", e.getMessage(), e);
             return "";
         }
