@@ -36,5 +36,6 @@
     <string name="repository_profile_open_home_text">Abrir página do repositório</string>
     <string name="imageGituhb">image_github</string>
     <string name="tvAppTheme">Kd Tu Mah? - Github</string>
+    <string name="user_list_row_login">Login:</string>
 
 </resources>

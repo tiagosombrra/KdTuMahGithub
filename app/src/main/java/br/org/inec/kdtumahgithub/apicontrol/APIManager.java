@@ -34,7 +34,7 @@ public class APIManager {
     }
 
     public User searchForUser(String searchText) {
-        String responseContent = callUsersSearch(searchText);
+        String responseContent = callUserSearch(searchText);
         JSONManager jsonManager = new JSONManager();
         User foundUser = jsonManager.getUserFromJSON(responseContent);
         return foundUser;

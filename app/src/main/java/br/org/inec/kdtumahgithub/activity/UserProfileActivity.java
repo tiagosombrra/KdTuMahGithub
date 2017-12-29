@@ -1,5 +1,6 @@
 package br.org.inec.kdtumahgithub.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,13 +14,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import br.org.inec.kdtumahgithub.R;
+import br.org.inec.kdtumahgithub.adapter.UserArrayAdapter;
 import br.org.inec.kdtumahgithub.adapter.UserRepositoriesArrayAdapter;
 import br.org.inec.kdtumahgithub.apicontrol.APIManager;
 import br.org.inec.kdtumahgithub.data.Repository;
+import br.org.inec.kdtumahgithub.data.User;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,7 +45,6 @@ public class UserProfileActivity extends AppCompatActivity {
     @BindView(R.id.user_profile_open_home_button) Button mOpenHomeButton;
 
     private String mUserHomeUrl;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +103,13 @@ public class UserProfileActivity extends AppCompatActivity {
         String query = intent.getStringExtra("user_repositories_query");
         Log.i("QUERY", query);
         new UserRepositoriesTask().execute(query);
+
+        //método para carregar os detalhes dos do usuário selecionado,mas devido a um problema
+        // na Task de pesquisa não consegui concluir a tempo.
+        //new UserTask().execute(mUserLogin.getText().toString());
     }
 
-    //método para carregar e setar as informações do usuário
+    //método para carregar e setar as informações dos repositórios do usuário
     private class UserRepositoriesTask extends AsyncTask<String, Void, List<Repository>> {
 
         protected void onPreExecute() {
@@ -131,6 +138,30 @@ public class UserProfileActivity extends AppCompatActivity {
                 mUserRepositoriesList.setVisibility(View.VISIBLE);
             } else {
                 mNoResultsText.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private class UserTask extends AsyncTask<String, Void, User> {
+
+        protected void onPreExecute() {
+
+        }
+
+        protected User doInBackground(String... params) {
+            String query = params[0];
+            User user;
+            APIManager APIManager = new APIManager();
+            String search = "https://api.github.com/users/" + query;
+            user = APIManager.searchForUser(search);
+            return user;
+        }
+
+        protected void onPostExecute(User response) {
+            mProgressBar.setVisibility(View.GONE);
+            if (response != null) {
+                Log.i("RESPONSE", response.toString());
+            } else {
             }
         }
     }

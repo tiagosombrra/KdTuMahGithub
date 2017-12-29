@@ -18,6 +18,11 @@ public class User {
         mLogin = "";
         mAvatarUrl = "";
         mHomeUrl = "";
+        mRepositoriesQuery = "";
+        mNumberRepositoryPublic = "";
+        mName = "";
+        mCompany = "";
+        mBlog = "";
     }
 
     public User(String login, String avatarUrl, String homeUrl, String repositoriesQuery) {
