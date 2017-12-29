@@ -52,9 +52,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-condensed"
             android:text="@string/user_search_no_results_message"
-            android:textSize="15sp"
-            android:visibility="gone" />
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:visibility="gone"
+            tools:text="@android:string/unknownName" />
 
         <ListView
             android:id="@+id/user_list"

@@ -12,10 +12,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-
+/**
+ * Classe para gerenciamento das requisições da API do Github
+ */
 public class APIManager {
-    private static final String GITHUB_API_USER_SEARCH_URL =
+    private static final String GITHUB_API_USERS_SEARCH_URL =
             "https://api.github.com/search/users?q=";
+    private static final String GITHUB_API_USER_SEARCH_URL =
+            "https://api.github.com/users/";
     private static final String GITHUB_API_REPOSITORY_SEARCH_URL =
             "https://api.github.com/search/repositories?q=";
 
@@ -23,10 +27,17 @@ public class APIManager {
     }
 
     public List<User> searchForUsers(String searchText) {
-        String responseContent = callUserSearch(searchText);
+        String responseContent = callUsersSearch(searchText);
         JSONManager jsonManager = new JSONManager();
         List<User> foundUsers = jsonManager.getUsersFromJSON(responseContent);
         return foundUsers;
+    }
+
+    public User searchForUser(String searchText) {
+        String responseContent = callUsersSearch(searchText);
+        JSONManager jsonManager = new JSONManager();
+        User foundUser = jsonManager.getUserFromJSON(responseContent);
+        return foundUser;
     }
 
     public List<Repository> searchForRepositories(String searchText) {
@@ -64,6 +75,10 @@ public class APIManager {
             return "";
         }
         return stringBuilder.toString();
+    }
+
+    private String callUsersSearch(String searchText) {
+        return readContentFromJSON(GITHUB_API_USERS_SEARCH_URL + searchText);
     }
 
     private String callUserSearch(String searchText) {

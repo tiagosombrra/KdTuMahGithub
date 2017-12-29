@@ -20,18 +20,26 @@ import br.org.inec.kdtumahgithub.R;
 import br.org.inec.kdtumahgithub.adapter.UserRepositoriesArrayAdapter;
 import br.org.inec.kdtumahgithub.apicontrol.APIManager;
 import br.org.inec.kdtumahgithub.data.Repository;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 import java.util.List;
 
+/**
+ * Classe de implementação da tela com detalhes do usuário
+ */
 public class UserProfileActivity extends AppCompatActivity {
 
-    private ImageView mUserAvatar;
-    private TextView mUserLogin;
-    private ListView mUserRepositoriesList;
-    private ProgressBar mProgressBar;
-    private TextView mRepositoriesLabel;
-    private TextView mNoResultsText;
-    private Button mOpenHomeButton;
+    @BindView(R.id.user_profile_user_avatar) ImageView mUserAvatar;
+    @BindView(R.id.user_profile_user_name) TextView mUserLogin;
+    @BindView(R.id.user_profile_user_repositories_list) ListView mUserRepositoriesList;
+    @BindView(R.id.user_profile_repositories_progressbar) ProgressBar mProgressBar;
+    @BindView(R.id.user_profile_user_repositories_label) TextView mRepositoriesLabel;
+    @BindView(R.id.user_profile_no_repositories) TextView mNoResultsText;
+    @BindView(R.id.user_profile_open_home_button) Button mOpenHomeButton;
+
     private String mUserHomeUrl;
 
 
@@ -41,16 +49,13 @@ public class UserProfileActivity extends AppCompatActivity {
         setTitle(R.string.user_profile_activity_title);
         setContentView(R.layout.activity_user_profile);
 
-        mUserAvatar = (ImageView) findViewById(R.id.user_profile_user_avatar);
-        mUserLogin = (TextView) findViewById(R.id.user_profile_user_name);
-        mUserRepositoriesList = (ListView) findViewById(R.id.user_profile_user_repositories_list);
-        mProgressBar = (ProgressBar) findViewById(R.id.user_profile_repositories_progressbar);
-        mRepositoriesLabel = (TextView) findViewById(R.id.user_profile_user_repositories_label);
-        mNoResultsText = (TextView) findViewById(R.id.user_profile_no_repositories);
-        mOpenHomeButton = (Button) findViewById(R.id.user_profile_open_home_button);
+        //inicialização do ButterKnife
+        ButterKnife.bind(this);
 
+        //carregar valores com informações da página anterior
         populateFieldsWithIntent();
 
+       //método para carregar as informações do repositório da lista que foi clicado na lista de repositórios
         mUserRepositoriesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -60,6 +65,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        //método para abrir a página do github com as informações completas do usuário
         mOpenHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +75,7 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
+    //método que abre uma nova tela e passa por Intent as informações detalhadas do repositório
     private void openRepositoryProfile(Repository repository) {
         Intent intent = new Intent(UserProfileActivity.this, RepositoryProfileActivity.class);
         intent.putExtra("repository_name", repository.getName());
@@ -80,6 +87,7 @@ public class UserProfileActivity extends AppCompatActivity {
         UserProfileActivity.this.startActivity(intent);
     }
 
+    //método que carrega os valores com informações da página anterior recebido por Intent
     private void populateFieldsWithIntent() {
         Intent intent = getIntent();
         Glide.with(this)
@@ -94,6 +102,7 @@ public class UserProfileActivity extends AppCompatActivity {
         new UserRepositoriesTask().execute(query);
     }
 
+    //método para carregar e setar as informações do usuário
     private class UserRepositoriesTask extends AsyncTask<String, Void, List<Repository>> {
 
         protected void onPreExecute() {

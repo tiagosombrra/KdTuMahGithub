@@ -11,6 +11,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe com métodos de requisições de dados JSON
+ */
 public class JSONManager {
     public JSONManager() {
     }
@@ -97,5 +100,25 @@ public class JSONManager {
             return null;
         }
         return foundRepositories;
+    }
+
+    public User getUserFromJSON(String jsonContent) {
+        User foundUser;
+        try {
+            JSONObject object = new JSONObject(jsonContent);
+                String userLogin = object.getString("login");
+                String userNumberRepositoryPublic = object.getString("public_repos");
+                String userName = object.getString("name");
+                String userCompany = object.getString("company");
+                String userBlog = object.getString("blog");
+
+            foundUser = new User(userLogin, userNumberRepositoryPublic, userName, userCompany, userBlog);
+
+        } catch (Exception e) {
+            Log.e("ERROR", e.getMessage(), e);
+            return null;
+        }
+
+        return foundUser;
     }
 }

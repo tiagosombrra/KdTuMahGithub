@@ -12,6 +12,9 @@ import br.org.inec.kdtumahgithub.data.Repository;
 
 import java.util.List;
 
+/**
+ * Classe adapter para a activity RepositoryProfile
+ */
 public class RepositoryArrayAdapter extends ArrayAdapter<Repository> {
     public RepositoryArrayAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);

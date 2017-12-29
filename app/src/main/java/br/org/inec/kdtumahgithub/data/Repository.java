@@ -1,5 +1,8 @@
 package br.org.inec.kdtumahgithub.data;
 
+/**
+ * Classe que implementa as variáveis e métodos do objeto Repository
+ */
 public class Repository {
     private String mName;
     private String mOwnerName;

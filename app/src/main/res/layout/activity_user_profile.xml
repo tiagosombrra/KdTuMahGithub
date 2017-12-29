@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/user_profile_user_name"
@@ -55,12 +55,17 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="gone" />
+
         <TextView
             android:id="@+id/user_profile_no_repositories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
             android:text="@string/user_profile_no_repositories_message"
-            android:visibility="gone"/>
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:visibility="gone"
+            tools:text="@android:string/unknownName" />
 
         <ListView
             android:id="@+id/user_profile_user_repositories_list"

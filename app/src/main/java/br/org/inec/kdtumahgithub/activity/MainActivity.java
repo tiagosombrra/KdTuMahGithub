@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import br.org.inec.kdtumahgithub.R;
 
+/**
+ * Classe de implementação da tela inicial do aplicativo, nela foi implementado o splash inicial.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle(R.string.main_activity_title);
         setContentView(R.layout.activity_main);
 
+        //thread para chamar a segunda tela com um delay.
         Thread myThread = new Thread() {
             @Override
             public void run() {

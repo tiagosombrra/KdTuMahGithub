@@ -15,7 +15,9 @@ import br.org.inec.kdtumahgithub.data.User;
 
 import java.util.List;
 
-
+/**
+ * Classe adapter para a activity UserSearch
+ */
 public class UserArrayAdapter extends ArrayAdapter<User> {
     public UserArrayAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
