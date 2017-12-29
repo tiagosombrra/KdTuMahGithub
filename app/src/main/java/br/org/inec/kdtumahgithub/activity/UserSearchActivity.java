@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import br.org.inec.kdtumahgithub.R;
 import br.org.inec.kdtumahgithub.adapter.UserArrayAdapter;
-import br.org.inec.kdtumahgithub.apicontrol.GithubAPIManager;
-import br.org.inec.kdtumahgithub.data.GithubUser;
+import br.org.inec.kdtumahgithub.apicontrol.APIManager;
+import br.org.inec.kdtumahgithub.data.User;
 
 import java.util.List;
 
@@ -63,13 +63,13 @@ public class UserSearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int index = position;
-                GithubUser user = (GithubUser) mUserList.getItemAtPosition(index);
+                User user = (User) mUserList.getItemAtPosition(index);
                 openUserProfile(user);
             }
         });
     }
 
-    private void openUserProfile(GithubUser user) {
+    private void openUserProfile(User user) {
         Intent intent = new Intent(UserSearchActivity.this, UserProfileActivity.class);
         intent.putExtra("user_login", user.getLogin());
         intent.putExtra("user_avatar", user.getAvatarUrl());
@@ -78,7 +78,7 @@ public class UserSearchActivity extends AppCompatActivity {
         UserSearchActivity.this.startActivity(intent);
     }
 
-    private class UserSearchTask extends AsyncTask<String, Void, List<GithubUser>> {
+    private class UserSearchTask extends AsyncTask<String, Void, List<User>> {
 
         protected void onPreExecute() {
             mProgressBar.setVisibility(View.VISIBLE);
@@ -86,15 +86,15 @@ public class UserSearchActivity extends AppCompatActivity {
             mNoResultsText.setVisibility(View.GONE);
         }
 
-        protected List<GithubUser> doInBackground(String... params) {
+        protected List<User> doInBackground(String... params) {
             String searchText = params[0];
-            List<GithubUser> users;
-            GithubAPIManager githubAPIManager = new GithubAPIManager();
-            users = githubAPIManager.searchForUsers(searchText);
+            List<User> users;
+            APIManager APIManager = new APIManager();
+            users = APIManager.searchForUsers(searchText);
             return users;
         }
 
-        protected void onPostExecute(List<GithubUser> response) {
+        protected void onPostExecute(List<User> response) {
             mProgressBar.setVisibility(View.GONE);
             if (response != null) {
                 Log.i("RESPONSE", response.toString());

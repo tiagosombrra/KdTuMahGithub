@@ -2,8 +2,8 @@ package br.org.inec.kdtumahgithub.apicontrol;
 
 import android.util.Log;
 
-import br.org.inec.kdtumahgithub.data.GithubRepository;
-import br.org.inec.kdtumahgithub.data.GithubUser;
+import br.org.inec.kdtumahgithub.data.Repository;
+import br.org.inec.kdtumahgithub.data.User;
 import br.org.inec.kdtumahgithub.jsonmanager.JSONManager;
 
 import java.io.BufferedReader;
@@ -13,33 +13,33 @@ import java.net.URL;
 import java.util.List;
 
 
-public class GithubAPIManager {
+public class APIManager {
     private static final String GITHUB_API_USER_SEARCH_URL =
             "https://api.github.com/search/users?q=";
     private static final String GITHUB_API_REPOSITORY_SEARCH_URL =
             "https://api.github.com/search/repositories?q=";
 
-    public GithubAPIManager() {
+    public APIManager() {
     }
 
-    public List<GithubUser> searchForUsers(String searchText) {
+    public List<User> searchForUsers(String searchText) {
         String responseContent = callUserSearch(searchText);
         JSONManager jsonManager = new JSONManager();
-        List<GithubUser> foundUsers = jsonManager.getUsersFromJSON(responseContent);
+        List<User> foundUsers = jsonManager.getUsersFromJSON(responseContent);
         return foundUsers;
     }
 
-    public List<GithubRepository> searchForRepositories(String searchText) {
+    public List<Repository> searchForRepositories(String searchText) {
         String responseContent = callRepositorySearch(searchText);
         JSONManager jsonManager = new JSONManager();
-        List<GithubRepository> foundRepositories = jsonManager.getRepositoriesFromJSON(responseContent);
+        List<Repository> foundRepositories = jsonManager.getRepositoriesFromJSON(responseContent);
         return foundRepositories;
     }
 
-    public List<GithubRepository> searchForUserRepositories(String query) {
+    public List<Repository> searchForUserRepositories(String query) {
         String responseContent = callUserRepositoriesSearch(query);
         JSONManager jsonManager = new JSONManager();
-        List<GithubRepository> foundRepositories = jsonManager.getUserRepositoriesFromJSON(responseContent);
+        List<Repository> foundRepositories = jsonManager.getUserRepositoriesFromJSON(responseContent);
         return foundRepositories;
     }
 

@@ -1,19 +1,19 @@
 package br.org.inec.kdtumahgithub.data;
 
 
-public class GithubUser {
+public class User {
     private String mLogin;
     private String mAvatarUrl;
     private String mHomeUrl;
     private String mRepositoriesQuery;
 
-    public GithubUser() {
+    public User() {
         mLogin = "";
         mAvatarUrl = "";
         mHomeUrl = "";
     }
 
-    public GithubUser(String login, String avatarUrl, String homeUrl, String repositoriesQuery) {
+    public User(String login, String avatarUrl, String homeUrl, String repositoriesQuery) {
         mLogin = login;
         mAvatarUrl = avatarUrl;
         mHomeUrl = homeUrl;

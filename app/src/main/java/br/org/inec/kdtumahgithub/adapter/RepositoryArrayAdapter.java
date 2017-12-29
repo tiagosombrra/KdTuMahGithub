@@ -5,22 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import br.org.inec.kdtumahgithub.R;
-import br.org.inec.kdtumahgithub.data.GithubRepository;
+import br.org.inec.kdtumahgithub.data.Repository;
 
 import java.util.List;
 
-public class RepositoryArrayAdapter extends ArrayAdapter<GithubRepository> {
+public class RepositoryArrayAdapter extends ArrayAdapter<Repository> {
     public RepositoryArrayAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public RepositoryArrayAdapter(Context context, int resource, List<GithubRepository> items) {
+    public RepositoryArrayAdapter(Context context, int resource, List<Repository> items) {
         super(context, resource, items);
     }
 
@@ -31,7 +28,7 @@ public class RepositoryArrayAdapter extends ArrayAdapter<GithubRepository> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.repository_list_row, null);
         }
 
-        GithubRepository repository = getItem(position);
+        Repository repository = getItem(position);
 
         if (repository != null) {
             TextView repositoryName = (TextView) convertView.findViewById(R.id.repository_name_text);

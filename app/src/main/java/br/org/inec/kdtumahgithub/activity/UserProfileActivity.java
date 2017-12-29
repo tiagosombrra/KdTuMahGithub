@@ -18,9 +18,8 @@ import com.bumptech.glide.Glide;
 
 import br.org.inec.kdtumahgithub.R;
 import br.org.inec.kdtumahgithub.adapter.UserRepositoriesArrayAdapter;
-import br.org.inec.kdtumahgithub.apicontrol.GithubAPIManager;
-import br.org.inec.kdtumahgithub.data.GithubRepository;
-import butterknife.BindView;
+import br.org.inec.kdtumahgithub.apicontrol.APIManager;
+import br.org.inec.kdtumahgithub.data.Repository;
 
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int index = position;
-                GithubRepository user = (GithubRepository) mUserRepositoriesList.getItemAtPosition(index);
+                Repository user = (Repository) mUserRepositoriesList.getItemAtPosition(index);
                 openRepositoryProfile(user);
             }
         });
@@ -70,7 +69,7 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void openRepositoryProfile(GithubRepository repository) {
+    private void openRepositoryProfile(Repository repository) {
         Intent intent = new Intent(UserProfileActivity.this, RepositoryProfileActivity.class);
         intent.putExtra("repository_name", repository.getName());
         intent.putExtra("repository_owner_name", repository.getOwnerName());
@@ -95,7 +94,7 @@ public class UserProfileActivity extends AppCompatActivity {
         new UserRepositoriesTask().execute(query);
     }
 
-    private class UserRepositoriesTask extends AsyncTask<String, Void, List<GithubRepository>> {
+    private class UserRepositoriesTask extends AsyncTask<String, Void, List<Repository>> {
 
         protected void onPreExecute() {
             mProgressBar.setVisibility(View.VISIBLE);
@@ -104,15 +103,15 @@ public class UserProfileActivity extends AppCompatActivity {
             mNoResultsText.setVisibility(View.GONE);
         }
 
-        protected List<GithubRepository> doInBackground(String... params) {
+        protected List<Repository> doInBackground(String... params) {
             String query = params[0];
-            List<GithubRepository> repositories;
-            GithubAPIManager githubAPIManager = new GithubAPIManager();
-            repositories = githubAPIManager.searchForUserRepositories(query);
+            List<Repository> repositories;
+            APIManager APIManager = new APIManager();
+            repositories = APIManager.searchForUserRepositories(query);
             return repositories;
         }
 
-        protected void onPostExecute(List<GithubRepository> response) {
+        protected void onPostExecute(List<Repository> response) {
             mProgressBar.setVisibility(View.GONE);
             if (response != null) {
                 Log.i("RESPONSE", response.toString());
