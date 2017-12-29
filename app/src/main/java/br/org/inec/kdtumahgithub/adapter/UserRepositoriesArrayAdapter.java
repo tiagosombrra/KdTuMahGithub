@@ -8,17 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import br.org.inec.kdtumahgithub.R;
-import br.org.inec.kdtumahgithub.data.GithubRepository;
+import br.org.inec.kdtumahgithub.data.Repository;
 
 import java.util.List;
 
-
-public class UserRepositoriesArrayAdapter extends ArrayAdapter<GithubRepository> {
+/**
+ * Classe adapter para a activity UserRepositories
+ */
+public class UserRepositoriesArrayAdapter extends ArrayAdapter<Repository> {
     public UserRepositoriesArrayAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public UserRepositoriesArrayAdapter(Context context, int resource, List<GithubRepository> items) {
+    public UserRepositoriesArrayAdapter(Context context, int resource, List<Repository> items) {
         super(context, resource, items);
     }
 
@@ -29,7 +31,7 @@ public class UserRepositoriesArrayAdapter extends ArrayAdapter<GithubRepository>
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.user_repositories_list_row, null);
         }
 
-        GithubRepository repository = getItem(position);
+        Repository repository = getItem(position);
 
         if (repository != null) {
             TextView userRepositoryName = (TextView) convertView.findViewById(R.id.user_repository_name_text);

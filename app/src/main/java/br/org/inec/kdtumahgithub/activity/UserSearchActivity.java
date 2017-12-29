@@ -14,18 +14,19 @@ import android.widget.TextView;
 
 import br.org.inec.kdtumahgithub.R;
 import br.org.inec.kdtumahgithub.adapter.UserArrayAdapter;
-import br.org.inec.kdtumahgithub.apicontrol.GithubAPIManager;
-import br.org.inec.kdtumahgithub.data.GithubUser;
+import br.org.inec.kdtumahgithub.apicontrol.APIManager;
+import br.org.inec.kdtumahgithub.data.User;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import java.util.List;
 
 public class UserSearchActivity extends AppCompatActivity {
 
-    private ListView mUserList;
-    private ProgressBar mProgressBar;
-    private TextView mNoResultsText;
-
-    SearchView searchView;
+    @BindView(R.id.user_list) ListView mUserList;
+    @BindView(R.id.user_search_progressbar) ProgressBar mProgressBar;
+    @BindView(R.id.user_search_no_results_text) TextView mNoResultsText;
+    @BindView(R.id.search_view) SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,43 +34,45 @@ public class UserSearchActivity extends AppCompatActivity {
         setTitle(R.string.user_search_activity_title);
         setContentView(R.layout.activity_user_search);
 
-        searchView = (SearchView) findViewById(R.id.search_view);
-        searchView.setQueryHint("Digite um usuário");
+        //inicialização do ButterKnife
+        ButterKnife.bind(this);
+
+        //configuração da view de pesquisa de usuário
+        searchView.setQueryHint(getResources().getString(R.string.user_search_view));
         searchView.onActionViewExpanded();
         searchView.setIconified(false);
-        //searchView.clearFocus();
+        searchView.clearFocus();
 
+        //método para capturar o usuário digitado e enviar o texto digitado para pesquisar na API do Github
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                new UserSearchTask().execute(query);
+                new UsersSearchTask().execute(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
                 return false;
             }
 
         });
 
-        mUserList = (ListView) findViewById(R.id.user_list);
-        mProgressBar = (ProgressBar) findViewById(R.id.user_search_progressbar);
-        mNoResultsText = (TextView) findViewById(R.id.user_search_no_results_text);
-
+        //método que captura o click na célula da listView de usuários encontrados e
+        // envia as informações para o próxima tela
         mUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int index = position;
-                GithubUser user = (GithubUser) mUserList.getItemAtPosition(index);
+                User user = (User) mUserList.getItemAtPosition(index);
                 openUserProfile(user);
             }
         });
     }
 
-    private void openUserProfile(GithubUser user) {
+    //método que reune as informações do usuário para ser enviado para a tela seguinte
+    private void openUserProfile(User user) {
         Intent intent = new Intent(UserSearchActivity.this, UserProfileActivity.class);
         intent.putExtra("user_login", user.getLogin());
         intent.putExtra("user_avatar", user.getAvatarUrl());
@@ -78,7 +81,8 @@ public class UserSearchActivity extends AppCompatActivity {
         UserSearchActivity.this.startActivity(intent);
     }
 
-    private class UserSearchTask extends AsyncTask<String, Void, List<GithubUser>> {
+    //método para a busca de usuários usando a API do Gituhb com tratamento para resultados vazios
+    private class UsersSearchTask extends AsyncTask<String, Void, List<User>> {
 
         protected void onPreExecute() {
             mProgressBar.setVisibility(View.VISIBLE);
@@ -86,15 +90,15 @@ public class UserSearchActivity extends AppCompatActivity {
             mNoResultsText.setVisibility(View.GONE);
         }
 
-        protected List<GithubUser> doInBackground(String... params) {
+        protected List<User> doInBackground(String... params) {
             String searchText = params[0];
-            List<GithubUser> users;
-            GithubAPIManager githubAPIManager = new GithubAPIManager();
-            users = githubAPIManager.searchForUsers(searchText);
+            List<User> users;
+            APIManager APIManager = new APIManager();
+            users = APIManager.searchForUsers(searchText);
             return users;
         }
 
-        protected void onPostExecute(List<GithubUser> response) {
+        protected void onPostExecute(List<User> response) {
             mProgressBar.setVisibility(View.GONE);
             if (response != null) {
                 Log.i("RESPONSE", response.toString());

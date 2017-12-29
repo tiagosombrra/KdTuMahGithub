@@ -1,5 +1,6 @@
 package br.org.inec.kdtumahgithub.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,28 +14,37 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import br.org.inec.kdtumahgithub.R;
+import br.org.inec.kdtumahgithub.adapter.UserArrayAdapter;
 import br.org.inec.kdtumahgithub.adapter.UserRepositoriesArrayAdapter;
-import br.org.inec.kdtumahgithub.apicontrol.GithubAPIManager;
-import br.org.inec.kdtumahgithub.data.GithubRepository;
+import br.org.inec.kdtumahgithub.apicontrol.APIManager;
+import br.org.inec.kdtumahgithub.data.Repository;
+import br.org.inec.kdtumahgithub.data.User;
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 import java.util.List;
 
+/**
+ * Classe de implementação da tela com detalhes do usuário
+ */
 public class UserProfileActivity extends AppCompatActivity {
 
-    private ImageView mUserAvatar;
-    private TextView mUserLogin;
-    private ListView mUserRepositoriesList;
-    private ProgressBar mProgressBar;
-    private TextView mRepositoriesLabel;
-    private TextView mNoResultsText;
-    private Button mOpenHomeButton;
-    private String mUserHomeUrl;
+    @BindView(R.id.user_profile_user_avatar) ImageView mUserAvatar;
+    @BindView(R.id.user_profile_user_name) TextView mUserLogin;
+    @BindView(R.id.user_profile_user_repositories_list) ListView mUserRepositoriesList;
+    @BindView(R.id.user_profile_repositories_progressbar) ProgressBar mProgressBar;
+    @BindView(R.id.user_profile_user_repositories_label) TextView mRepositoriesLabel;
+    @BindView(R.id.user_profile_no_repositories) TextView mNoResultsText;
+    @BindView(R.id.user_profile_open_home_button) Button mOpenHomeButton;
 
+    private String mUserHomeUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,25 +52,23 @@ public class UserProfileActivity extends AppCompatActivity {
         setTitle(R.string.user_profile_activity_title);
         setContentView(R.layout.activity_user_profile);
 
-        mUserAvatar = (ImageView) findViewById(R.id.user_profile_user_avatar);
-        mUserLogin = (TextView) findViewById(R.id.user_profile_user_name);
-        mUserRepositoriesList = (ListView) findViewById(R.id.user_profile_user_repositories_list);
-        mProgressBar = (ProgressBar) findViewById(R.id.user_profile_repositories_progressbar);
-        mRepositoriesLabel = (TextView) findViewById(R.id.user_profile_user_repositories_label);
-        mNoResultsText = (TextView) findViewById(R.id.user_profile_no_repositories);
-        mOpenHomeButton = (Button) findViewById(R.id.user_profile_open_home_button);
+        //inicialização do ButterKnife
+        ButterKnife.bind(this);
 
+        //carregar valores com informações da página anterior
         populateFieldsWithIntent();
 
+       //método para carregar as informações do repositório da lista que foi clicado na lista de repositórios
         mUserRepositoriesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int index = position;
-                GithubRepository user = (GithubRepository) mUserRepositoriesList.getItemAtPosition(index);
+                Repository user = (Repository) mUserRepositoriesList.getItemAtPosition(index);
                 openRepositoryProfile(user);
             }
         });
 
+        //método para abrir a página do github com as informações completas do usuário
         mOpenHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +78,8 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void openRepositoryProfile(GithubRepository repository) {
+    //método que abre uma nova tela e passa por Intent as informações detalhadas do repositório
+    private void openRepositoryProfile(Repository repository) {
         Intent intent = new Intent(UserProfileActivity.this, RepositoryProfileActivity.class);
         intent.putExtra("repository_name", repository.getName());
         intent.putExtra("repository_owner_name", repository.getOwnerName());
@@ -81,6 +90,7 @@ public class UserProfileActivity extends AppCompatActivity {
         UserProfileActivity.this.startActivity(intent);
     }
 
+    //método que carrega os valores com informações da página anterior recebido por Intent
     private void populateFieldsWithIntent() {
         Intent intent = getIntent();
         Glide.with(this)
@@ -93,9 +103,14 @@ public class UserProfileActivity extends AppCompatActivity {
         String query = intent.getStringExtra("user_repositories_query");
         Log.i("QUERY", query);
         new UserRepositoriesTask().execute(query);
+
+        //método para carregar os detalhes dos do usuário selecionado,mas devido a um problema
+        // na Task de pesquisa não consegui concluir a tempo.
+        //new UserTask().execute(mUserLogin.getText().toString());
     }
 
-    private class UserRepositoriesTask extends AsyncTask<String, Void, List<GithubRepository>> {
+    //método para carregar e setar as informações dos repositórios do usuário
+    private class UserRepositoriesTask extends AsyncTask<String, Void, List<Repository>> {
 
         protected void onPreExecute() {
             mProgressBar.setVisibility(View.VISIBLE);
@@ -104,15 +119,15 @@ public class UserProfileActivity extends AppCompatActivity {
             mNoResultsText.setVisibility(View.GONE);
         }
 
-        protected List<GithubRepository> doInBackground(String... params) {
+        protected List<Repository> doInBackground(String... params) {
             String query = params[0];
-            List<GithubRepository> repositories;
-            GithubAPIManager githubAPIManager = new GithubAPIManager();
-            repositories = githubAPIManager.searchForUserRepositories(query);
+            List<Repository> repositories;
+            APIManager APIManager = new APIManager();
+            repositories = APIManager.searchForUserRepositories(query);
             return repositories;
         }
 
-        protected void onPostExecute(List<GithubRepository> response) {
+        protected void onPostExecute(List<Repository> response) {
             mProgressBar.setVisibility(View.GONE);
             if (response != null) {
                 Log.i("RESPONSE", response.toString());
@@ -123,6 +138,30 @@ public class UserProfileActivity extends AppCompatActivity {
                 mUserRepositoriesList.setVisibility(View.VISIBLE);
             } else {
                 mNoResultsText.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private class UserTask extends AsyncTask<String, Void, User> {
+
+        protected void onPreExecute() {
+
+        }
+
+        protected User doInBackground(String... params) {
+            String query = params[0];
+            User user;
+            APIManager APIManager = new APIManager();
+            String search = "https://api.github.com/users/" + query;
+            user = APIManager.searchForUser(search);
+            return user;
+        }
+
+        protected void onPostExecute(User response) {
+            mProgressBar.setVisibility(View.GONE);
+            if (response != null) {
+                Log.i("RESPONSE", response.toString());
+            } else {
             }
         }
     }

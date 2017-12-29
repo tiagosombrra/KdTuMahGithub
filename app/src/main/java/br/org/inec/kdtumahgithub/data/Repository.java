@@ -1,6 +1,9 @@
 package br.org.inec.kdtumahgithub.data;
 
-public class GithubRepository {
+/**
+ * Classe que implementa as variáveis e métodos do objeto Repository
+ */
+public class Repository {
     private String mName;
     private String mOwnerName;
     private String mHomeUrl;
@@ -8,7 +11,7 @@ public class GithubRepository {
     private String mLanguage;
     private boolean mIsPrivate;
 
-    public GithubRepository() {
+    public Repository() {
         mName = "";
         mOwnerName = "";
         mHomeUrl = "";
@@ -17,8 +20,8 @@ public class GithubRepository {
         mIsPrivate = false;
     }
 
-    public GithubRepository(String name, String ownerName, String homeUrl, String description,
-                            String languange, boolean isPrivate) {
+    public Repository(String name, String ownerName, String homeUrl, String description,
+                      String languange, boolean isPrivate) {
         mName = name;
         mOwnerName = ownerName;
         mHomeUrl = homeUrl;

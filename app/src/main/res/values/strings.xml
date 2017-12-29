@@ -10,7 +10,8 @@
     <string name="user_search_activity_title">Busca de Usuários</string>
     <string name="user_search_text_hint">Digite o nome do usuário</string>
     <string name="user_search_search_button_text">Pesquisar</string>
-    <string name="user_search_no_results_message">Não há resultados</string>
+    <string name="user_search_no_results_message">Usuário não encontrado</string>
+    <string name="user_search_view">Digite um usuário</string>
 
     <!-- RepositorySearchActivity -->
     <string name="repository_search_activity_title">Busca de Repositórios</string>
@@ -35,5 +36,6 @@
     <string name="repository_profile_open_home_text">Abrir página do repositório</string>
     <string name="imageGituhb">image_github</string>
     <string name="tvAppTheme">Kd Tu Mah? - Github</string>
+    <string name="user_list_row_login">Login:</string>
 
 </resources>

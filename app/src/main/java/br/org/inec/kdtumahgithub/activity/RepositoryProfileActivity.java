@@ -15,8 +15,12 @@ import br.org.inec.kdtumahgithub.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Classe de implementação da tela com detalhes resumidos do repositório
+ */
 public class RepositoryProfileActivity extends AppCompatActivity {
 
+    //inicialização das variávies usando ButterKnife
     @BindView(R.id.repository_profile_repository_name)
     TextView mRepositoryName;
     @BindView(R.id.repository_profile_owner_name_text)
@@ -43,6 +47,7 @@ public class RepositoryProfileActivity extends AppCompatActivity {
 
         populateFieldsWithIntent();
 
+        //método que implementa do toque no botão para abrir a página no github com as informações completas do repositório
         mOpenHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +57,7 @@ public class RepositoryProfileActivity extends AppCompatActivity {
         });
     }
 
+    //carrega as informações do repositório
     private void populateFieldsWithIntent() {
         Intent intent = getIntent();
         mRepositoryName.setText(intent.getStringExtra("repository_name"));
@@ -62,6 +68,7 @@ public class RepositoryProfileActivity extends AppCompatActivity {
         mRepositoryHomePage = intent.getStringExtra("repository_home");
     }
 
+    //tratamento para valores null
     private void verifyDescription(String description) {
         if (description.equals("null")) {
             description = "Sem descrição";
@@ -69,6 +76,7 @@ public class RepositoryProfileActivity extends AppCompatActivity {
         mRepositoryDescription.setText(description);
     }
 
+    //tratamento para valores null
     private void verifyLanguage(String language) {
         if (language.equals("null")) {
             language = "Linguagem não definida";
@@ -76,6 +84,7 @@ public class RepositoryProfileActivity extends AppCompatActivity {
         mRepositoryLanguage.setText(language);
     }
 
+    //tratamento para valores booleanos (0 e 1)
     private void correctTextPrivacy(boolean isPrivate) {
         String privacy = "Não";
         if (isPrivate) {

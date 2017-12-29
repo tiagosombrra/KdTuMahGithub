@@ -11,17 +11,19 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import br.org.inec.kdtumahgithub.R;
-import br.org.inec.kdtumahgithub.data.GithubUser;
+import br.org.inec.kdtumahgithub.data.User;
 
 import java.util.List;
 
-
-public class UserArrayAdapter extends ArrayAdapter<GithubUser> {
+/**
+ * Classe adapter para a activity UserSearch
+ */
+public class UserArrayAdapter extends ArrayAdapter<User> {
     public UserArrayAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public UserArrayAdapter(Context context, int resource, List<GithubUser> items) {
+    public UserArrayAdapter(Context context, int resource, List<User> items) {
         super(context, resource, items);
     }
 
@@ -32,7 +34,7 @@ public class UserArrayAdapter extends ArrayAdapter<GithubUser> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.user_list_row, null);
         }
 
-        GithubUser user = getItem(position);
+        User user = getItem(position);
 
         if (user != null) {
             ImageView userAvatar = (ImageView) convertView.findViewById(R.id.user_profile_avatar);
