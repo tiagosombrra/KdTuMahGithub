@@ -37,5 +37,6 @@
     <string name="imageGituhb">image_github</string>
     <string name="tvAppTheme">Kd Tu Mah? - Github</string>
     <string name="user_list_row_login">Login:</string>
+    <string name="user_site">Site:</string>
 
 </resources>

@@ -40,6 +40,8 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
             ImageView userAvatar = (ImageView) convertView.findViewById(R.id.user_profile_avatar);
             TextView userLogin = (TextView) convertView.findViewById(R.id.user_login);
             userLogin.setText(user.getLogin());
+            TextView userSite = (TextView) convertView.findViewById(R.id.user_url);
+            userSite.setText(user.getHomeUrl());
             Glide.with(getContext())
                     .load(user.getAvatarUrl())
                     .override(200, 200)
